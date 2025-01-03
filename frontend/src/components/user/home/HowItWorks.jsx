@@ -1,6 +1,7 @@
 import React from 'react'
-import { CloudUpload, Printer, CheckCheck } from "lucide-react";
-import Image from "next/image";
+import { SearchCheck, BookmarkCheck, SquareParking } from "lucide-react";
+import curvedDottedLine from "../../../assets/curvedDottedLine.svg";
+
 
 export const HowItWorks = () => {
     return (
@@ -11,16 +12,15 @@ export const HowItWorks = () => {
                 How does it work?
               </h2>
               <p className="max-w-lg mx-auto mt-4 text-gray-600  text-lg leading-8">
-                Explore the seamless process of uploading, printing, and managing
-                your documents effortlessly with our intuitive platform.
+              Effortlessly upload, manage, and organize your parking details with ease using our user-friendly PARK-IT platform.
               </p>
             </div>
     
             <div className="relative mt-12 lg:mt-20">
               <div className="absolute inset-x-0 hidden xl:px-44 top-2 md:block md:px-20 lg:px-28">
-                <Image
+                <img
                   className="w-full"
-                  src="https://cdn.rareblocks.xyz/collection/celebration/images/steps/2/curved-dotted-line.svg"
+                  src={curvedDottedLine}
                   width={1000}
                   height={1000}
                   alt="svg"
@@ -32,15 +32,15 @@ export const HowItWorks = () => {
                   <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
                     <span className="text-xl font-semibold text-gray-700">
                       {" "}
-                      <search-check className="h-7 w-7 text-indigo-500" />{" "}
+                      <SearchCheck className="h-7 w-7 text-indigo-500" />{" "}
                     </span>
                   </div>
                   <h3 className="mt-6 text-xl font-semibold leading-tight text-black md:mt-10">
-                    Upload & Pay
+                    Search
                   </h3>
                   <p className="mt-4 text-base text-gray-600">
-                    Easily upload and pay for your documents to our platform, and we
-                    will be ensuring a seamless and efficient process.
+                  Easily find available parking spaces nearby or at your 
+                  destination, tailored to your timing and preferences
                   </p>
                 </div>
     
@@ -48,16 +48,15 @@ export const HowItWorks = () => {
                   <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
                     <span className="text-xl font-semibold text-gray-700">
                       {" "}
-                      <Printer className="h-7 w-7 text-indigo-500" />
+                      <BookmarkCheck className="h-7 w-7 text-indigo-500" />
                     </span>
                   </div>
                   <h3 className="mt-6 text-xl font-semibold leading-tight text-black md:mt-10">
-                    Print
+                    Book
                   </h3>
                   <p className="mt-4 text-base text-gray-600">
-                    Customize your printing preferences and effortlessly proceed
-                    with printing your documents, tailored to your exact
-                    requirements.
+                  Secure your spot in advance with a quick booking process, 
+                  ensuring hassle-free parking when you arrive.
                   </p>
                 </div>
     
@@ -65,15 +64,15 @@ export const HowItWorks = () => {
                   <div className="flex items-center justify-center w-16 h-16 mx-auto bg-white border-2 border-gray-200 rounded-full shadow">
                     <span className="text-xl font-semibold text-gray-700">
                       {" "}
-                      <CheckCheck className="h-7 w-7 text-indigo-500" />{" "}
+                      <SquareParking className="h-7 w-7 text-indigo-500" />{" "}
                     </span>
                   </div>
                   <h3 className="mt-6 text-xl font-semibold leading-tight text-black md:mt-10">
-                    Collect
+                    Park
                   </h3>
                   <p className="mt-4 text-base text-gray-600">
-                    Pick up your printed documents with ease, ensuring a smooth and
-                    efficient process that saves you time and effort.
+                  Secure your spot in advance with a quick booking process,
+                   ensuring hassle-free parking when you arrive.
                   </p>
                 </div>
               </div>

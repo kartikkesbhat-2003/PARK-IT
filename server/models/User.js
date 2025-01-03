@@ -36,7 +36,6 @@ const userSchema = new mongoose.Schema({
     governmentIdType: {
         type: String,
         enum:["Adhar Card", "Driving Licence"],
-        required: true
     },
     governmentId: {
         type:String,
