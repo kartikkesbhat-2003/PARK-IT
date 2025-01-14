@@ -96,7 +96,8 @@ exports.signup = async (req, res) => {
             password, 
             confirmPassword, 
             accountType = 'User',
-            otp
+            otp,
+            status = "Unverified"
         } = req.body;
 
         // validate all the info 
@@ -166,6 +167,7 @@ exports.signup = async (req, res) => {
                 email,
                 accountType : accountType,
                 password:hashedPass,
+                status,
                 image:`https://api.dicebear.com/5.x/initials/svg?seed=${fullName}`,
             }
         )
@@ -230,7 +232,8 @@ exports.login = async (req, res) => {
             const payload = {
                 email:user.email,
                 id:user._id,
-                accountType:user.accountType
+                accountType:user.accountType,
+                status: user.status
             }
 
             const token = jwt.sign(payload, process.env.JWT_SECRET, {

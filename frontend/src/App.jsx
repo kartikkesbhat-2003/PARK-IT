@@ -14,10 +14,10 @@ import { Navbar } from './components/user/global/Navbar'
 export const App = () => {
 
   return (
-    <div className="w-screen min-h-screen flex flex-col "   >
+    <div className="w-screen min-h-screen flex flex-col background-pure-greys-100"   >
 
       <div
-        className="absolute inset-x-0 overflow-hidden -top-10 -z-10 transform-gpu blur-3xl sm:-top-10"
+        className="absolute inset-x-0 overflow-hidden -top-10 -z-10 transform-gpu blur-3xl sm:-top-10 background-pure-greys-200 "
         aria-hidden="true"
       >
         <div
