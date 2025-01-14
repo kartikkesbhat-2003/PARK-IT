@@ -116,6 +116,6 @@ If you have any questions or need further assistance, please contact us at:
 - Website: [www.parkit.com](https://www.parkit.com)
   -Team Members
   kartik
-  Mangalam
+  Manglam
   Anushka
   Prerna.
