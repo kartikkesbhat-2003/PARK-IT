@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-exports.locationSchema = new mongoose.Schema({
+const locationSchema = new mongoose.Schema({
     longitude:{
         type:String,
         required:true
