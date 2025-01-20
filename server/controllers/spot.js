@@ -1,6 +1,6 @@
-const ParkingSpot = require('../models/ParkingSpot');
-const Location = require('../models/Location');
-const Verification = require('../models/Verification');
+const ParkingSpot = require("../models/ParkingSpot");
+const Location = require("../models/Location");
+const Verification = require("../models/Verification");
 
 // Helper function for input validation
 const validateFields = (fields) => {
@@ -8,7 +8,7 @@ const validateFields = (fields) => {
     for (const [key, value] of Object.entries(fields)) {
         if (!value) missingFields.push(key);
     }
-    return missingFields.length ? `Missing fields: ${missingFields.join(', ')}` : null;
+    return missingFields.length ? `Missing fields: ${missingFields.join(", ")}` : null;
 };
 
 // Create a new parking spot
@@ -25,7 +25,14 @@ exports.createSpot = async (req, res) => {
         } = req.body;
 
         // Validate required fields
-        const validationError = validateFields({ longitude, lattitude, spotLength, spotWidth, verificationDoc });
+        const validationError = validateFields({
+            longitude,
+            lattitude,
+            spotLength,
+            spotWidth,
+            pricePerHour,
+            verificationDoc,
+        });
         if (validationError) {
             return res.status(400).json({
                 success: false,
@@ -53,19 +60,19 @@ exports.createSpot = async (req, res) => {
 
         // Populate related fields for response
         const populatedSpot = await ParkingSpot.findById(newSpot._id)
-            .populate('location')
-            .populate('verification');
+            .populate("location")
+            .populate("verification");
 
-        return res.status(200).json({
+        return res.status(201).json({
             success: true,
-            message: 'Parking spot created successfully',
+            message: "Parking spot created successfully",
             data: populatedSpot,
         });
     } catch (error) {
         console.error("Error creating parking spot:", error);
         return res.status(500).json({
             success: false,
-            message: 'Error creating parking spot',
+            message: "Error creating parking spot",
             error: error.message,
         });
     }
@@ -80,33 +87,33 @@ exports.updateSpot = async (req, res) => {
         if (!spotId) {
             return res.status(400).json({
                 success: false,
-                message: 'Spot ID is required',
+                message: "Spot ID is required",
             });
         }
 
         const updatedSpot = await ParkingSpot.findByIdAndUpdate(spotId, updateData, {
             new: true, // Return the updated document
-        }).populate('location')
-          .populate('verification');
-          
+        })
+            .populate("location")
+            .populate("verification");
 
         if (!updatedSpot) {
             return res.status(404).json({
                 success: false,
-                message: 'Parking spot not found',
+                message: "Parking spot not found",
             });
         }
 
         return res.status(200).json({
             success: true,
-            message: 'Parking spot updated successfully',
+            message: "Parking spot updated successfully",
             data: updatedSpot,
         });
     } catch (error) {
         console.error("Error updating parking spot:", error);
         return res.status(500).json({
             success: false,
-            message: 'Error updating parking spot',
+            message: "Error updating parking spot",
             error: error.message,
         });
     }
@@ -116,9 +123,8 @@ exports.updateSpot = async (req, res) => {
 exports.getAllSpots = async (req, res) => {
     try {
         const spots = await ParkingSpot.find()
-            .populate('location')
-            .populate('verification');
-           
+            .populate("location")
+            .populate("verification");
 
         return res.status(200).json({
             success: true,
@@ -128,7 +134,7 @@ exports.getAllSpots = async (req, res) => {
         console.error("Error fetching parking spots:", error);
         return res.status(500).json({
             success: false,
-            message: 'Error fetching parking spots',
+            message: "Error fetching parking spots",
             error: error.message,
         });
     }
@@ -142,18 +148,18 @@ exports.getSpotById = async (req, res) => {
         if (!spotId) {
             return res.status(400).json({
                 success: false,
-                message: 'Spot ID is required',
+                message: "Spot ID is required",
             });
         }
 
         const spot = await ParkingSpot.findById(spotId)
-            .populate('location')
-            .populate('verification');
-            
+            .populate("location")
+            .populate("verification");
+
         if (!spot) {
             return res.status(404).json({
                 success: false,
-                message: 'Parking spot not found',
+                message: "Parking spot not found",
             });
         }
 
@@ -165,7 +171,44 @@ exports.getSpotById = async (req, res) => {
         console.error("Error fetching parking spot:", error);
         return res.status(500).json({
             success: false,
-            message: 'Error fetching parking spot',
+            message: "Error fetching parking spot",
+            error: error.message,
+        });
+    }
+};
+
+// Delete a parking spot by ID
+exports.deleteSpot = async (req, res) => {
+    try {
+        const { spotId } = req.params;
+
+        if (!spotId) {
+            return res.status(400).json({
+                success: false,
+                message: "Spot ID is required",
+            });
+        }
+
+        // Find and delete the spot by its ID
+        const deletedSpot = await ParkingSpot.findByIdAndDelete(spotId);
+
+        if (!deletedSpot) {
+            return res.status(404).json({
+                success: false,
+                message: "Parking spot not found",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Parking spot deleted successfully",
+            data: deletedSpot,
+        });
+    } catch (error) {
+        console.error("Error deleting parking spot:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Error deleting parking spot",
             error: error.message,
         });
     }
