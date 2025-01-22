@@ -1,16 +1,16 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-
-exports.verificationSchema = new mongoose.Schema({
-    verificationStatus:{
-        type:String,
-        enum:["Verified", "Pending", "Regected"],
+const verificationSchema = new mongoose.Schema({
+    verificationStatus: {
+        type: String,
+        enum: ["Pending", "Verified", "Rejected", ],
+        required: true,
         default: "Pending"
     },
     verificationDoc: {
-        type:String,
-        required:true
-    }
-})
+        type: String,
+        required: true,
+    },
+});
 
-module.exports = mongoose.model("Verificatcion", verificationSchema);
+module.exports = mongoose.model("Verification", verificationSchema);

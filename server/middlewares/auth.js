@@ -63,7 +63,7 @@ exports.isUser = async (req, res,next) => {
         next();
         
     } catch(err) {
-        return res.ststus(500).json(
+        return res.status(500).json(
             {
                 success:false,
                 message:"User role cannot be verified",
@@ -90,7 +90,7 @@ exports.isAdmin = async (req, res,next) => {
         next();
         
     } catch(err) {
-        return res.ststus(500).json(
+        return res.status(500).json(
             {
                 success:false,
                 message:"User role cannot be verified",
