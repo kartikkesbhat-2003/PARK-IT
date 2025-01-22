@@ -14,6 +14,16 @@ export const Navbar = () => {
   const ref = useRef(null);
 
   const [open, setOpen] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [documentType, setDocumentType] = useState("");
+  const [documentId, setDocumentId] = useState("");
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log("Document Type:", documentType);
+    console.log("Document ID:", documentId);
+    setShowForm(false); // Close the form after submission
+  };
 
   // Close dropdown when clicking outside
   useOnClickOutside(ref, () => setOpen(false));
@@ -40,6 +50,77 @@ export const Navbar = () => {
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
                 ref={ref}
               >
+                <div
+                  className={`rounded-full border ${user?.status === "Verified"
+                      ? "text-green-500 border-green-500"
+                      : user?.status === "Pending"
+                        ? "text-yellow-500 border-yellow-500"
+                        : "text-red-500 border-red-500"
+                    }`}
+                >
+                  {user?.status === "Unverified" ? (
+                    <button
+                      className="text-red-400 py px-2 rounded-full "
+                      onClick={() => setShowForm(true)}
+                    >
+                      Verify Now
+                    </button>
+                  ) : user?.status === "Pending" ? (
+                    "Pending Verification"
+                  ) : (
+                    "Verified"
+                  )}
+                </div>
+
+                {showForm && (
+                  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                    <div className="bg-white p-4 rounded shadow-lg w-80">
+                      <h2 className="text-lg font-bold mb-4">Upload Documents</h2>
+                      <form onSubmit={handleFormSubmit}>
+                        <div className="mb-4">
+                          <label className="block text-gray-700 font-bold mb-2">
+                            Document Type
+                          </label>
+                          <input
+                            type="text"
+                            value={documentType}
+                            onChange={(e) => setDocumentType(e.target.value)}
+                            className="w-full border p-2 rounded"
+                            required
+                          />
+                        </div>
+                        <div className="mb-4">
+                          <label className="block text-gray-700 font-bold mb-2">
+                            Document ID
+                          </label>
+                          <input
+                            type="text"
+                            value={documentId}
+                            onChange={(e) => setDocumentId(e.target.value)}
+                            className="w-full border p-2 rounded"
+                            required
+                          />
+                        </div>
+                        <div className="flex justify-end">
+                          <button
+                            type="button"
+                            className="bg-gray-500 text-white py-1 px-3 rounded mr-2 hover:bg-gray-600"
+                            onClick={() => setShowForm(false)}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="submit"
+                            className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                )}
+
                 {/* Parking Spot Icon */}
                 <div
                   onClick={() => navigate("/spots")}
@@ -114,6 +195,8 @@ export const Navbar = () => {
                         <span>My Bookings</span>
                       </div>
                     </Link>
+
+                    
 
                     {/* Logout */}
                     <div

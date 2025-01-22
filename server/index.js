@@ -52,6 +52,9 @@ const cors = require('cors'); // backened entertain the front request
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/User');
 const spotRoutes = require('./routes/spot'); // Import Spot Routes
+const vehicleRoutes = require('./routes/Vehicle');
+const {cloudinaryConnect} = require('./config/cloudinary');
+const fileUpload = require('express-fileupload');
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -59,7 +62,16 @@ const PORT = process.env.PORT || 4000;
 // database connect
 database.connect();
 
-// middleware
+//cloudinary connect
+cloudinaryConnect();
+
+app.use(
+    fileUpload({
+        useTempFiles: true,
+        tempFileDir: "/tmp",
+    })
+)
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -72,6 +84,7 @@ app.use(
 // Routes
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/spot", spotRoutes); // Add Spot Routes
+app.use("/api/v1/vehicle", vehicleRoutes);
 
 // default route
 app.get("/", (req, res) => {
