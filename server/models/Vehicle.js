@@ -13,6 +13,10 @@ const vehicleSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    ownwer:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
     parkedStatus:{
         type:Boolean
     },

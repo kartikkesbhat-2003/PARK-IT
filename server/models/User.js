@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
     parkingSpots: [
         {
             type:mongoose.Schema.Types.ObjectId,
-            ref:"ParkingSpace"
+            ref:"ParkingSpot"
         }
     ],
     notifications: [

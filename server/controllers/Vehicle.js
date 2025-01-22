@@ -177,7 +177,6 @@ exports.getVehicleDetails = async (req, res) => {
     }
 }
 
-
 // delete vehicle
 exports.deleteVehicle = async (req, res) => {
     try {
