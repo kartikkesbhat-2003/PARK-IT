@@ -31,37 +31,37 @@ export const LoginForm = () => {
     return (
         <form
             onSubmit={handleOnSubmit}
-            className="max-w-md mx-auto space-y-3"
+            className="max-w-md mx-auto space-y-6 bg-richblack-900 text-white rounded-md shadow-lg"
         >
-            <div>
-                <label className="block mb-2 text-gray-700 font-medium text-sm sm:text-base">
-                    Email Address *
-                </label>
+            <div className="relative z-0 w-full group">
                 <input
                     required
                     type="text"
                     name="email"
                     value={email}
                     onChange={handleOnChange}
-                    placeholder="Enter email address"
-                    className="w-full px-4 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    placeholder=" "
+                    className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                 />
+                <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-blue-100">
+                    Email Address *
+                </label>
             </div>
 
             <div>
-                <label className="block mb-2 text-gray-700 font-medium text-sm sm:text-base">
-                    Password *
-                </label>
-                <div className="relative">
+                <div className="relative z-0 w-full group">
                     <input
                         required
                         type={showPassword ? "text" : "password"}
                         name="password"
                         value={password}
                         onChange={handleOnChange}
-                        placeholder="Enter Password"
-                        className="w-full px-4 py-1 border border-gray-300 rounded-sm "
+                        placeholder=" "
+                        className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
                     />
+                    <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-blue-100">
+                        Password *
+                    </label>
                     <span
                         onClick={() => setShowPassword((prev) => !prev)}
                         className="absolute right-3 top-2.5 text-gray-500 cursor-pointer"
@@ -75,7 +75,7 @@ export const LoginForm = () => {
                 </div>
                 <Link
                     to="/forgot-password"
-                    className="text-sm text-blue-500 hover:underline mt-2 inline-block"
+                    className="text-sm text-blue-100 hover:underline mt-2 inline-block"
                 >
                     Forgot Password?
                 </Link>

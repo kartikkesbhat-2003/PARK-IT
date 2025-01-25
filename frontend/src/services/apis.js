@@ -6,3 +6,7 @@ export const endpoints = {
     SIGNUP_API: BASE_URL + "/auth/signup",
     LOGIN_API: BASE_URL + "/auth/login",
 }
+
+export const spotEndpoints = {
+    CREATE_SPOT_API : BASE_URL + "/spot/addSpot"
+}

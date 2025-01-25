@@ -5,16 +5,16 @@ import { Footer } from "../global/Footer";
 
 export const CallToAction = () => {
   return (
-    <div className="relative mx-auto mt-20">
+    <div className="relative mx-auto bg-gray-800 pt-12">
       <Wrapper>
         <div
-          className="rounded-xl p-1"
+          className="rounded-xl p-1 mt-20"
           style={{
             backgroundImage:
-              "linear-gradient(to right bottom, rgb(79, 70, 229) 0%, rgb(165, 56, 164) 50%, rgb(220, 38, 38) 100%)",
+              "linear-gradient(to right bottom, #D16BA5 0%, #6A4C93 50%, #9A3F7F 100%)", // Violet-pink gradient
           }}
         >
-          <div className="rounded-lg bg-black bg-opacity-80 backdrop-blur">
+          <div className="rounded-lg bg-black bg-opacity-80 backdrop-blur ">
             <div className="flex w-full flex-wrap items-center justify-between gap-4 px-8 py-10 sm:px-16 lg:flex-nowrap">
               <div className="lg:max-w-xl">
                 <h2 className="block w-full pb-6 bg-gradient-to-b from-white to-gray-500 bg-clip-text font-bold text-transparent text-3xl sm:text-4xl">
@@ -27,11 +27,8 @@ export const CallToAction = () => {
                 </p>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-6">
-                <Link
-                  to="/signup"
-                  prefetch={false}
-                >
-                  <button className="bg-[#1d4ed8] font-medium text-white button-text flex items-center justify-center whitespace-nowrap rounded-md transition-all duration-300 px-8 py-3 text-xs sm:text-sm">
+                <Link to="/signup" prefetch={false}>
+                  <button className="bg-gradient-to-r from-[#D16BA5] to-[#6A4C93] font-medium text-white button-text flex items-center justify-center whitespace-nowrap rounded-md transition-all duration-300 px-8 py-3 text-xs sm:text-sm hover:scale-105">
                     Get Started
                   </button>
                 </Link>

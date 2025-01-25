@@ -1,35 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const {
-    createSpot,
-    updateSpot,
-    getSpots,
-    getSpotById,
-    deleteSpot,
-    getSpotsByUser  // Added deleteSpot import
+    createParkingSpot,
+    updateParkingSpot,
+    getAllParkingSpots,
+    getParkingSpotById,
+    deleteParkingSpot,
+    getParkingSpotsByUser,
+    getNearbyParkingSpots
 } = require('../controllers/spot');
-const { auth, isAdmin, isUser } = require('../middlewares/auth');
+const { auth, isUser } = require('../middlewares/auth');
 
 // Route to create a new parking spot
-router.post('/addSpot',auth, isUser, createSpot);
+router.post('/createSpot', auth, isUser, createParkingSpot);
 
-// Route to update a parking spot by ID
-router.put('/update', auth, isUser, updateSpot);
+// Route to update a parking spot (ID from request body)
+router.put('/update/:spotId', auth, isUser, updateParkingSpot);
 
 // Route to get all parking spots
-router.get('/getSpots',auth ,getSpots);
+router.get('/getAllSpots', auth, getAllParkingSpots);
 
-// Route to get a specific parking spot by ID
-router.get('/spot', getSpotById);
+// Route to get a specific parking spot by ID (ID from query parameters)
+router.get('/getSpot/:spotId', auth, getParkingSpotById);
 
-// Route to delete a parking spot by ID
-router.delete('/delete', deleteSpot);  // Added delete route
+// Route to delete a parking spot (ID from request body)
+router.delete('/deleteSpots/:spotId', auth, isUser, deleteParkingSpot);
 
-router.get('/getSpotsByUser,', auth, getSpotsByUser);
+// Route to get all parking spots created by the authenticated user
+router.get('/userSpots', auth, getParkingSpotsByUser);
 
-// router.delete('/delete', (req, res) => {
-//     console.log('Delete request received for spot ID:', req.params.spotId);
-//     deleteSpot(req, res); // Call your deleteSpot controller function
-// });
+// Route to fetch nearby parking spots within a specific radius (default: 5 km)
+router.get('/nearby', auth, getNearbyParkingSpots);
 
 module.exports = router;

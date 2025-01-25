@@ -31,13 +31,13 @@ export const Navbar = () => {
   return (
     <>
       <nav
-        className={`w-full h-[70px] md:h-[80px] bg-white flex items-center justify-between z-20 fixed top-0 left-0 right-0 transition-transform duration-300 border-b border-black/[0.1]`}
+        className={`w-full h-[70px] md:h-[80px] border-b-gray-700 bg-transparent text-white flex items-center justify-between z-20 fixed top-0 left-0 right-0 transition-transform duration-300 border-b border-black/[0.1] backdrop-blur-md`}
       >
         <Wrapper className={`h-[70px] flex justify-between items-center`}>
           {/* Logo */}
           <div className="flex flex-col items-start">
             <Link to="/">
-              <h2 className="text-3xl font-extrabold leading-tight text-black sm:text-3xl lg:text-3xl">
+              <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-3xl lg:text-3xl">
                 Park-It
               </h2>
             </Link>
@@ -51,12 +51,13 @@ export const Navbar = () => {
                 ref={ref}
               >
                 <div
-                  className={`rounded-full border ${user?.status === "Verified"
+                  className={`rounded-full border ${
+                    user?.status === "Verified"
                       ? "text-green-500 border-green-500"
                       : user?.status === "Pending"
-                        ? "text-yellow-500 border-yellow-500"
-                        : "text-red-500 border-red-500"
-                    }`}
+                      ? "text-yellow-500 border-yellow-500"
+                      : "text-red-500 border-red-500"
+                  }`}
                 >
                   {user?.status === "Unverified" ? (
                     <button
@@ -131,7 +132,7 @@ export const Navbar = () => {
                     alignItems: "center",
                     width: "40px",
                     height: "40px",
-                    backgroundColor: "#f0f0f0",
+                    backgroundColor: "#333",
                     borderRadius: "50%",
                     border: "2px solid #ccc",
                   }}
@@ -158,13 +159,13 @@ export const Navbar = () => {
                 {/* Dropdown */}
                 {open && (
                   <div
-                    className="absolute top-16 right-8 z-[1000] shadow-md rounded-md border border-gray-200 bg-white w-56"
+                    className="absolute top-16 right-8 z-[1000] shadow-md rounded-md border border-gray-200 bg-richblack-900 w-56"
                     onClick={(e) => e.stopPropagation()} // Prevent closing on inner clicks
                   >
                     {/* User Info */}
-                    <div className="p-4 text-sm text-gray-800 border-b border-gray-200">
+                    <div className="p-4 text-sm text-white border-b border-gray-200">
                       <h1 className="font-medium">{user?.fullName}</h1>
-                      <p className="text-xs text-gray-500">{user?.email}</p>
+                      <p className="text-xs text-gray-400">{user?.email}</p>
                     </div>
 
                     {/* Links */}
@@ -172,8 +173,8 @@ export const Navbar = () => {
                       to="/dashboard/my-profile"
                       onClick={() => setOpen(false)}
                     >
-                      <div className="flex items-center gap-x-2 py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
-                        <User className="text-gray-500" />
+                      <div className="flex items-center gap-x-2 py-2 px-4 text-sm text-gray-200 hover:bg-gray-800">
+                        <User className="text-gray-400" />
                         <span>My Profile</span>
                       </div>
                     </Link>
@@ -181,8 +182,8 @@ export const Navbar = () => {
                       to="/dashboard/my-parking-spots"
                       onClick={() => setOpen(false)}
                     >
-                      <div className="flex items-center gap-x-2 py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
-                        <MapPin className="text-gray-500" />
+                      <div className="flex items-center gap-x-2 py-2 px-4 text-sm text-gray-200 hover:bg-gray-800">
+                        <MapPin className="text-gray-400" />
                         <span>My Parking Spots</span>
                       </div>
                     </Link>
@@ -190,13 +191,11 @@ export const Navbar = () => {
                       to="/dashboard/my-bookings"
                       onClick={() => setOpen(false)}
                     >
-                      <div className="flex items-center gap-x-2 py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
-                        <Book className="text-gray-500" />
+                      <div className="flex items-center gap-x-2 py-2 px-4 text-sm text-gray-200 hover:bg-gray-800">
+                        <Book className="text-gray-400" />
                         <span>My Bookings</span>
                       </div>
                     </Link>
-
-                    
 
                     {/* Logout */}
                     <div
@@ -204,9 +203,9 @@ export const Navbar = () => {
                         dispatch(logout(navigate));
                         setOpen(false);
                       }}
-                      className="flex items-center gap-x-2 py-2 px-4 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 border-t border-gray-200"
+                      className="flex items-center gap-x-2 py-2 px-4 text-sm text-gray-200 cursor-pointer hover:bg-gray-800 border-t border-gray-200"
                     >
-                      <LogOut className="text-gray-500" />
+                      <LogOut className="text-gray-400" />
                       <span>Logout</span>
                     </div>
                   </div>
@@ -216,13 +215,19 @@ export const Navbar = () => {
 
             {/* Auth Actions */}
             {!token && (
-              <>
-                <Link to="/signup">
-                  <button className="border border-gray-300 bg-white text-gray-800 px-4 py-2 text-sm transition-transform duration-200 hover:bg-gray-100 hover:scale-105">
-                    Sign up
-                  </button>
-                </Link>
-              </>
+              <div className="flex gap-4 flex-wrap justify-center">
+              <Link to="/signup">
+                <button className="border border-transparent bg-gradient-to-r from-[#D16BA5] to-[#6A4C93] text-white px-6 py-2 text-sm transition-all duration-300 transform rounded-full font-semibold shadow-md hover:scale-105 hover:from-[#C13584] hover:to-[#9A3F7F] focus:outline-none focus:ring-2 focus:ring-[#D16BA5] focus:ring-opacity-50">
+                  Sign up
+                </button>
+              </Link>
+              <Link to="/login">
+                <button className="border border-transparent bg-gradient-to-r from-[#D16BA5] to-[#6A4C93] text-white px-6 py-2 text-sm transition-all duration-300 transform rounded-full font-semibold shadow-md hover:scale-105 hover:from-[#C13584] hover:to-[#9A3F7F] focus:outline-none focus:ring-2 focus:ring-[#D16BA5] focus:ring-opacity-50">
+                  Login
+                </button>
+              </Link>
+            </div>
+            
             )}
           </div>
         </Wrapper>

@@ -9,26 +9,24 @@ export const Template = ({ title, description1, description2, formType }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-[#1A1C1D] px-4 sm:px-6 lg:px-8 text-gray-200">
             {loading ? (
-                <div className="text-xl font-medium">Loading...</div>
+                <div className="text-xl font-medium text-gray-400">Loading...</div>
             ) : (
-                <div className="flex flex-col items-center rounded-lg p-6 sm:p-8 w-full max-w-sm border">
+                <div className="flex flex-col items-center rounded-lg p-6 sm:p-8 w-full max-w-sm border border-gray-700 bg-pure-greys-800 shadow-lg">
                     <div className="w-full">
-                        <h1 className="text-lg sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-4 text-left">{title}</h1>
-                        <p className="text-sm sm:text-base text-gray-600 mb-6 text-left">
-                            <span>{description1}</span> {" "}
-                            <p className="font-semibold text-blue-500 inline">{description2}</p>
-                        </p>
+                        <h1 className="text-lg sm:text-2xl font-bold text-white mb-4">{title}</h1>
 
+                        {/* Render form based on type */}
                         {formType === "signup" ? <SignupForm /> : <LoginForm />}
 
-                            {
-                                formType === "signup" ? (
+                        {/* Switch between forms */}
+                        <div className="mt-4 text-center">
+                            {formType === "signup" ? (
                                 <>
-                                    <span className="text-sm text-gray-600">Already have an account?</span>
+                                    <span className="text-sm text-gray-400">Already have an account?</span>
                                     <span
-                                        className="text-sm text-blue-500 font-semibold cursor-pointer ml-2 hover:text-blue-600 transition-colors duration-200"
+                                        className="text-sm text-blue-100 font-semibold cursor-pointer ml-2 hover:text-blue-500"
                                         onClick={() => navigate("/login")}
                                     >
                                         Login
@@ -36,16 +34,16 @@ export const Template = ({ title, description1, description2, formType }) => {
                                 </>
                             ) : (
                                 <>
-                                    <span className="text-sm text-gray-600">Don't have an account?</span>
+                                    <span className="text-sm text-gray-400">Don't have an account?</span>
                                     <span
-                                        className="text-sm text-blue-500 font-semibold cursor-pointer ml-2 hover:text-blue-600 transition-colors duration-200"
+                                        className="text-sm text-blue-100 font-semibold cursor-pointer ml-2 hover:text-blue-500"
                                         onClick={() => navigate("/signup")}
                                     >
                                         Signup
                                     </span>
                                 </>
                             )}
-
+                        </div>
                     </div>
                 </div>
             )}

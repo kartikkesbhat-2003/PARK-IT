@@ -2,26 +2,25 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { MoveRight } from "lucide-react";
 
-
 export const Hero = () => {
     return (
         <div
-          className="min-h-[calc(100vh-70px)] md:min-h-[calc(100vh)]
-         relative isolate bg-grid-black/[0.02] px-6 pt-2 lg:px-8 "
+          className="min-h-[calc(100vh-70px)] md:min-h-[calc(100vh-80px)]
+         relative isolate bg-[#1A1C1D] px-6 pt-2 lg:px-8 "
         >
           
           <div className="max-w-2xl py-32 mx-auto sm:py-32 lg:py-28">
             <div className="hidden sm:mb-8 sm:flex sm:justify-center"></div>
             <div className="text-center">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Your Parking Solution, Just a Tap Away.
+              <h1 className="text-4xl font-bold tracking-tight text-gray-200 sm:text-6xl">
+                Your Parking Solution, Just a Tap Away.
               </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
-              Discover our innovative parking management solution, designed to simplify hosting and renting personal parking spaces, redefining convenience in the parking industry.
+              <p className="mt-6 text-lg leading-8 text-gray-400">
+                Discover our innovative parking management solution, designed to simplify hosting and renting personal parking spaces, redefining convenience in the parking industry.
               </p>
               <div className="flex items-center justify-center mt-10 gap-x-6">
                 <Link to={"/signup"}>
-                  <div className="px-12 py-3 rounded-full bg-black text-white tracking-wide text-[16px] flex items-center gap-2">
+                  <div className="px-12 py-3 rounded-full bg-[#2E3333] text-white tracking-wide text-[16px] flex items-center gap-2 border-2 border-gray-600">
                     Explore Now
                     <MoveRight size={20} />
                   </div>
