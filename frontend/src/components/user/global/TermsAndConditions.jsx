@@ -6,7 +6,7 @@ import { Footer } from "./Footer";
 export const TermsAndConditionPage = () => {
   return (
     <section className="w-full">
-      <Wrapper className="w-full my-6 flex flex-col">
+      <Wrapper className="w-full my-6 flex flex-col text-white">
         <h2 className="md:text-4xl font-extrabold mb-4 text-2xl">
           Terms and Conditions
         </h2>

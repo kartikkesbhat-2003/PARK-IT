@@ -19,7 +19,7 @@ export const Hero = () => {
                 Discover our innovative parking management solution, designed to simplify hosting and renting personal parking spaces, redefining convenience in the parking industry.
               </p>
               <div className="flex items-center justify-center mt-10 gap-x-6">
-                <Link to={"/signup"}>
+                <Link to={"/spots"}>
                   <div className="px-12 py-3 rounded-full bg-[#2E3333] text-white tracking-wide text-[16px] flex items-center gap-2 border-2 border-gray-600">
                     Explore Now
                     <MoveRight size={20} />

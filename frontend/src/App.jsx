@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { TermsAndConditionPage } from './components/user/global/TermsAndConditions'
 import { Footer } from './components/user/global/Footer'
@@ -10,11 +10,18 @@ import { Signup } from './pages/Signup'
 import { OpenRoute } from './components/core/auth/OpenRoute'
 import { VerifyEmail } from './pages/VerifyEmail'
 import { Navbar } from './components/user/global/Navbar'
+import { AnimatePresence, motion } from 'framer-motion'
+import PrivateRoute from './components/core/auth/PrivateRoute'
+import { Spot } from './components/user/spot/Spot'
+import { ForgotPassword } from './pages/ForgotPassword'
+import { UpdatePassword } from './pages/UpdatePassword'
+import { AddSpots } from './components/user/spot/AddSpots'
 
 export const App = () => {
+  const location = useLocation();
 
   return (
-    <div className="w-screen min-h-screen flex flex-col background-pure-greys-100"   >
+    <div className="w-screen min-h-screen flex flex-col background-pure-greys-100">
 
       <div
         className="absolute inset-x-0 overflow-hidden -top-10 -z-10 transform-gpu blur-3xl sm:-top-10 background-pure-greys-200 "
@@ -29,43 +36,77 @@ export const App = () => {
         />
       </div>
 
-        
-        <Navbar />
-        <Routes>
+      <Navbar />
+
+      <AnimatePresence exitBeforeEnter>
+        <Routes location={location} key={location.key}>
           <Route path="/" element={<Home />} />
           <Route path="/terms-conditions" element={<TermsAndConditionPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/refund-policy" element={<ReturnRefundPolicy />} />
 
-          <Route path="signup" 
-                 element={
-                    <OpenRoute>
-                      <Signup />
-                    </OpenRoute>
-                }
+          <Route path="signup"
+            element={
+              <OpenRoute>
+                <Signup />
+              </OpenRoute>
+            }
           />
 
-          <Route path="login" 
-                 element={
-                    <OpenRoute>
-                      <Login />
-                    </OpenRoute>
-                }
+          <Route path="login"
+            element={
+              <OpenRoute>
+                <Login />
+              </OpenRoute>
+            }
           />
 
-      <Route
-        path="verify-email"
-        element={
-          <OpenRoute>
-            <VerifyEmail />
-          </OpenRoute>
-        }
-      />
+          <Route path="verify-email"
+            element={
+              <OpenRoute>
+                <VerifyEmail />
+              </OpenRoute>
+            }
+          />
 
-        
+          <Route
+            path="forgot-password"
+            element={
+              <OpenRoute>
+                <ForgotPassword />
+              </OpenRoute>
+            }
+          />
+
+          <Route path='spots'
+            element={
+              <PrivateRoute>
+                <Spot/>
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="update-password/:token"
+            element={
+              <OpenRoute>
+                <UpdatePassword />
+              </OpenRoute>
+            }
+          />
+
+          <Route
+            path='create-parking-spot'
+            element={
+              <PrivateRoute>
+                <AddSpots/>
+              </PrivateRoute>
+            }
+            />
+
         </Routes>
+      </AnimatePresence>
 
     </div>
   )
 }
-

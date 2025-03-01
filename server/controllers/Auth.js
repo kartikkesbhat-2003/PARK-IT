@@ -281,75 +281,75 @@ exports.login = async (req, res) => {
 }
 
 
-// // change password
-// exports.changePassword = async (req, res) => {
-//     try {
+// change password
+exports.changePassword = async (req, res) => {
+    try {
 
-//         const userDetails = await User.findById(req.user.id);
-//         // fetch data
-//         const {oldPassword, newPassword} = req.body;
+        const userDetails = await User.findById(req.user.id);
+        // fetch data
+        const {oldPassword, newPassword} = req.body;
 
-//         //Validate old password
-//         const isPasswordMatch = await bcrypt.compare(
-//             oldPassword, 
-//             userDetails.password
-//         );
+        //Validate old password
+        const isPasswordMatch = await bcrypt.compare(
+            oldPassword, 
+            userDetails.password
+        );
 
-//         // get oldPassword, newPassword
-//         if(!isPasswordMatch) {
-//             return res
-//                 .status(401)
-//                 .json({
-//                 success: false,
-//                 message: 'The Password is Incorrect',
-//             })
-//         }
+        // get oldPassword, newPassword
+        if(!isPasswordMatch) {
+            return res
+                .status(401)
+                .json({
+                success: false,
+                message: 'The Password is Incorrect',
+            })
+        }
 
-//         const encryptedPassword = await bcrypt.hash(newPassword, 10);
-//         const updatedUserDetails = await User.findByIdAndUpdate(
-//             req.user.id,
-//             { password: encryptedPassword },
-//             { new: true }
-//         );
+        const encryptedPassword = await bcrypt.hash(newPassword, 10);
+        const updatedUserDetails = await User.findByIdAndUpdate(
+            req.user.id,
+            { password: encryptedPassword },
+            { new: true }
+        );
 
-//         //send notification email
-//         try {
-//             const emailResponse = await mailSender(
-//                 updatedUserDetails.email,
-//                 `Password Updated Successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`,
-//                 passwordUpdated(
-//                     updatedUserDetails.email,
-//                     updatedUserDetails.firstName,
-//                 )
-//             )
-//             console.log('Email sent successfully................', emailResponse);
-//         } catch (error) {
-//             //if there's an error sending the email, log the error and return a 500 (Internal Server Error) error
-//             console.log('Error Occurred While Sending Email: ', error);
-//             return res.status(500).json({
-//                 success: false,
-//                 message: 'Error Occurred While Sending Email',
-//                 error: error.message,
-//             });
-//         }
+        //send notification email
+        try {
+            const emailResponse = await mailSender(
+                updatedUserDetails.email,
+                `Password Updated Successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`,
+                passwordUpdated(
+                    updatedUserDetails.email,
+                    updatedUserDetails.firstName,
+                )
+            )
+            console.log('Email sent successfully................', emailResponse);
+        } catch (error) {
+            //if there's an error sending the email, log the error and return a 500 (Internal Server Error) error
+            console.log('Error Occurred While Sending Email: ', error);
+            return res.status(500).json({
+                success: false,
+                message: 'Error Occurred While Sending Email',
+                error: error.message,
+            });
+        }
 
-//         //Return success response
-//         return res
-//             .status(200)
-//             .json
-//             (
-//                 { 
-//                 success: true, 
-//                 message: 'Password Updated Successfully' 
-//             }
-//         );
+        //Return success response
+        return res
+            .status(200)
+            .json
+            (
+                { 
+                success: true, 
+                message: 'Password Updated Successfully' 
+            }
+        );
 
-//     } catch(err) {
-//         console.log(err);
-//         return res.status(500).json({
-//             success:false,
-//             message:"Error while changing password",
-//             error:err.message,
-//         })
-//     }
-// }
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({
+            success:false,
+            message:"Error while changing password",
+            error:err.message,
+        })
+    }
+}

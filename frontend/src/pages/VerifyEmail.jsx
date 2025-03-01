@@ -13,9 +13,9 @@ export const VerifyEmail = () => {
   const navigate = useNavigate();
   const { signupData, loading } = useSelector((state) => state.auth);
 
-  useEffect( () => {
+  useEffect(() => {
     //only access this route when user has filled the signup form
-    if(!signupData) {
+    if (!signupData) {
       navigate("/signup");
     }
   }, [])
@@ -24,8 +24,8 @@ export const VerifyEmail = () => {
     e.preventDefault();
 
     const {
-      accountType, 
-      fullName, 
+      accountType,
+      fullName,
       email,
       password,
       confirmPassword,
@@ -33,78 +33,79 @@ export const VerifyEmail = () => {
 
     dispatch(
       signUp(
-        accountType, 
-        fullName, 
-        email, 
-        password, 
+        accountType,
+        fullName,
+        email,
+        password,
         confirmPassword,
-        otp, 
+        otp,
         navigate
       )
     );
   };
 
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] grid place-items-center">
-        {
-          loading ? (
-            <div>
-              <div className="spinner"></div>
-            </div>
-          ) : (
-            <div className="max-w-[500px] p-4 lg:p-8">
-              <h1 className="text-richblack-5 font-semibold text-[1.875rem] leading-[2.375rem]">
+    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-[#1A1C1D] px-4 sm:px-6 lg:px-8 text-gray-200">
+      {
+        loading ? (
+          <div className="text-xl font-medium text-gray-400">Loading...</div>
+        ) : (
+          <div className="flex flex-col items-center rounded-lg p-6 sm:p-8 w-full max-w-sm border border-gray-700 bg-pure-greys-800 shadow-lg">
+            <div className="w-full">
+              <h1 className="text-lg sm:text-2xl font-bold text-white mb-4">
                 Verify Email
               </h1>
-              <p className="text-[1.125rem] leading-[1.625rem] my-4 text-richblack-100">
-                A verification code has been sent to you. Enter the code below
+              <p className="text-sm sm:text-base text-gray-400 mb-6">
+                A verification code has been sent to your email. Please enter the code below to verify your account.
               </p>
-              <form onSubmit={handleOnSubmit}>
-                <OTPInput  
-                  value = {otp}
-                  onChange={setOtp} 
+              <form onSubmit={handleOnSubmit} className="space-y-4">
+                <OTPInput
+                  value={otp}
+                  onChange={setOtp}
                   numInputs={6}
                   renderInput={(props) => (
-                    <input 
-                      {...props} 
+                    <input
+                      {...props}
                       placeholder="-"
+                      className="w-[80px] lg:w-[120px] border-gray-700 bg-[#2D2F30] rounded-md text-gray-200 text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
                       style={{
-                        boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)"
+                        width: "40px", // Default width for all screens
+                        height: "40px", // Optional for a square look
                       }}
-                      className="w-[48px] lg:w-[60px] border-0 bg-richblack-800 rounded-[0.5rem] text-richblack-5 aspect-square text-center focus:border-0 focus:outline-2 focus:outline-yellow-50"
                     />
                   )}
                   containerStyle={{
+                    display: "flex",
                     justifyContent: "space-between",
-                    gap: "0 6px",
+                    gap: "12px", // Space between inputs
                   }}
                 />
-
-                <button type="submit"
-                  className="w-full bg-yellow-50 py-[12px] px-[12px] rounded-[8px] mt-6 font-medium text-richblack-900"
+                <button
+                  type="submit"
+                  className="w-full bg-blue-500 text-gray-100 py-2 rounded-lg font-medium hover:bg-blue-600 transition duration-200"
                 >
                   Verify Email
                 </button>
               </form>
-
-              <div className="mt-6 flex items-center justify-between">
-                  <Link to="/signup">
-                    <p className="flex items-center gap-x-2 text-richblack-5">
-                      <BiArrowBack />
-                      Back To Signup
-                    </p>
-                  </Link>
-
+              <div className="flex items-center justify-between mt-6 text-sm">
+                <Link to="/signup" className="text-gray-400 hover:text-blue-500">
+                  <BiArrowBack className="inline-block mr-1" />
+                  Back To Signup
+                </Link>
                 <button
-                  className="flex items-center text-blue-100 gap-x-2"
+                  className="text-blue-100 hover:text-blue-500 flex items-center gap-x-1"
                   onClick={() => dispatch(sendOtp(signupData.email, navigate))}
-                > 
-                  <RxCountdownTimer /> Resend it
+                >
+                  <RxCountdownTimer />
+                  Resend it
                 </button>
               </div>
             </div>
-          )
-        }
+          </div>
+        )
+      }
     </div>
+
+
   )
 }

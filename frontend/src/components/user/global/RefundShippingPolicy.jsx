@@ -6,7 +6,7 @@ export const ReturnRefundPolicy = () => {
   return (
     <>
       <Wrapper>
-        <div className="container mx-auto p-4 mt-[80px]">
+        <div className="container mx-auto p-4 mt-[80px] text-white">
           <h1 className="md:text-4xl font-extrabold mb-4 text-2xl">Return and Refund Policy</h1>
           <p className="text-gray-600 my-2">Effective Date: 29 December 2024</p>
 

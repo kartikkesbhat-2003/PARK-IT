@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export const PrivacyPolicy = () => {
   return (
     <section className="w-full ">
-      <Wrapper className="w-full my-6 flex flex-col">
+      <Wrapper className="w-full my-6 flex flex-col text-white">
         <h1 className="md:text-4xl font-extrabold mb-4 text-2xl">Privacy Policy</h1>
         <p className="text-gray-600 my-2">Effective Date: 29 December 2024</p>
 
