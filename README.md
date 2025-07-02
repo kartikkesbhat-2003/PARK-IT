@@ -1,122 +1,48 @@
-# PARK-IT
+# Park-It
+
+Park-It is a comprehensive web-based platform designed to address the challenges of urban parking. The project features a modern, responsive user interface and a robust backend, providing a seamless experience for both end-users and administrators. Built with a scalable architecture and clean code practices, Park-It demonstrates expertise in full-stack development, user experience design, and system integration.
+
+## Technologies Used
+
+- **Frontend:** React, TypeScript, Vite, Redux
+- **Backend:** Node.js, Express
+- **Database:** (Specify your database, e.g., MongoDB, PostgreSQL, etc.)
+- **Payment Integration:** Razorpay
+- **Other Tools:** RESTful APIs, modern CSS, responsive design principles
 
 ## Getting Started
 
-To get started with the PARK-IT project, follow these steps:
-
 ### Prerequisites
-
-Make sure you have the following installed on your machine:
-
-- Node.js (v14 or higher)
-- npm (v6 or higher) or yarn
+- Node.js (v16 or above recommended)
+- npm or yarn
 
 ### Installation
 
 1. Clone the repository:
-
    ```bash
-   git clone https://github.com/kartikkesbhat-2003/PARK-IT.git
+   git clone https://github.com/your-username/park-it.git
+   cd park-it
    ```
-
-2. Navigate to the project directory:
-
+2. Install dependencies for both client and server:
    ```bash
-   cd PARK-IT
-   ```
-
-3. Install the dependencies for the server:
-
-   ```bash
-   cd server
+   cd client
+   npm install --legacy-peer-deps
+   cd ../server
    npm install
    ```
+3. Set up environment variables:
+   - Create `.env` files in both `client` and `server` directories as needed.
 
-   or
+4. Start the development servers:
+   - For the client:
+     ```bash
+     cd client
+     npm run dev
+     ```
+   - For the server:
+     ```bash
+     cd server
+     npm run dev
+     ```
 
-   ```bash
-   cd server
-   yarn install
-   ```
-
-4. Install the dependencies for the frontend:
-   ```bash
-   cd ../frontend
-   npm install
-   ```
-   or
-   ```bash
-   cd ../frontend
-   yarn install
-   ```
-
-### Running the Application
-
-1. Start the development server from the frontend folder:
-
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-
-   or
-
-   ```bash
-   yarn dev
-   ```
-
-2. Open your browser and navigate to `http://localhost:3000` to see the application running.
-
-### Building for Production
-
-To create a production build of the application, run:
-
-```bash
-npm run build
-```
-
-or
-
-```bash
-yarn build
-```
-
-The build output will be located in the `build` directory.
-
-### Running Tests
-
-To run the tests, use:
-
-```bash
-npm test
-```
-
-or
-
-```bash
-yarn test
-```
-
-### Contributing
-
-If you would like to contribute to the project, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a pull request.
-
-### Contact
-
-If you have any questions or need further assistance, please contact us at:
-
-- Email: kkesbhat1601@gmail.com
-- Phone: +91 8856987832
-- Website: [www.parkit.com](https://www.parkit.com)
-  -Team Members
-  kartik kesbhat
-
-  Manglam
-  Anushka
-  Prerna.
+ 
