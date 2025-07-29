@@ -264,7 +264,7 @@ export const authControllers = {
     try {
       await sendEmailToUserUsingGmail(
         email,
-        EmailType.PASSWORD_RESET,
+        EmailType.RESET_PASSWORD,
         resetToken
       );
       return res.status(200).json({
