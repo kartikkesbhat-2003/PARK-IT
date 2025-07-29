@@ -24,4 +24,16 @@ export const authenticationServices = {
       { $set: { "userVerification.verificationToken": token } }
     );
   },
+  updateUserPassword: async (userId: string, hashedPassword: string) => {
+    return await User.updateOne(
+      { _id: userId },
+      { $set: { password: hashedPassword } }
+    );
+  },
+  verifyUser: async (userId: string) => {
+    return await User.updateOne(
+      { _id: userId },
+      { $set: { "userVerification.isVerified": true } }
+    );
+  },
 };
