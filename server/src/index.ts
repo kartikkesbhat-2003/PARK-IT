@@ -36,7 +36,7 @@ app.use("/api/v1/payments", paymentRoutes);
 app.use("/api/v1/users", userRoutes);
 
 // Handle 404
-app.use("*", (req: express.Request, res: express.Response) => {
+app.use("/*", (req: express.Request, res: express.Response) => {
   res.status(404).json({ message: "Route not found" });
 });
 
