@@ -4,27 +4,12 @@ import { Parking } from "../../models/parking.model";
 import { User } from "../../models/user.model";
 import { asyncHandler } from "../../utils";
 import { Response } from "express";
-import { Request as ExpressRequest } from "express";
-
-interface Request extends Express.Request {
-  params: { orderId: any };
-  body: {
-    userId: string;
-    parkingId: string;
-    startTime: Date;
-    endTime: Date;
-    vehicleType: string;
-    vehicleNumber: string;
-    totalAmount: number;
-    approve?: boolean;
-  };
-}
+import { IRequestWithUser } from "../../@types";
 
 export const orderControllers = {
-  createNewOrder: asyncHandler(async (req: Request, res: Response) => {
+  createNewOrder: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     try {
       const {
-        userId,
         parkingId,
         startTime,
         endTime,
@@ -33,8 +18,16 @@ export const orderControllers = {
         totalAmount,
       } = req.body;
 
+      const userId = req.customUser?._id;
+
+      if (!userId) {
+        return res.status(401).json({
+          success: false,
+          message: "Authentication required",
+        });
+      }
+
       if (
-        !userId ||
         !parkingId ||
         !startTime ||
         !endTime ||
@@ -47,13 +40,10 @@ export const orderControllers = {
         });
       }
 
-      if (
-        !mongoose.Types.ObjectId.isValid(userId) ||
-        !mongoose.Types.ObjectId.isValid(parkingId)
-      ) {
+      if (!mongoose.Types.ObjectId.isValid(parkingId)) {
         return res.status(400).json({
           success: false,
-          message: "Invalid user ID or parking ID format",
+          message: "Invalid parking ID format",
         });
       }
 
@@ -215,7 +205,7 @@ export const orderControllers = {
       });
     }
   }),
-  approveNewOrder: asyncHandler(async (req: Request, res: Response) => {
+  approveNewOrder: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     try {
       const { orderId } = req.params;
       const { approve } = req.body;
@@ -227,7 +217,7 @@ export const orderControllers = {
         });
       }
 
-      const currentUser = req.user;
+      const currentUser = req.customUser;
       if (!currentUser) {
         return res.status(401).json({
           success: false,
@@ -251,11 +241,11 @@ export const orderControllers = {
       }
 
       const isOrderCreator =
-        currentUser.userId.toString() === order.userId.toString();
+        currentUser._id.toString() === order.userId.toString();
 
       let isParkingOwner = false;
 
-      if (currentUser.role === "owner") {
+      if (currentUser.userType === "owner") {
         const parking = await Parking.findById(order.parkingId);
 
         if (!parking) {
@@ -266,7 +256,7 @@ export const orderControllers = {
         }
 
         isParkingOwner =
-          parking.owner.toString() === currentUser.userId.toString();
+          parking.owner.toString() === currentUser._id.toString();
 
         if (!isOrderCreator && !isParkingOwner) {
           return res.status(403).json({
@@ -317,9 +307,9 @@ export const orderControllers = {
       });
     }
   }),
-  getAllActiveOrders: asyncHandler(async (req: Request, res: Response) => {
+  getAllActiveOrders: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     try {
-      const currentUser = req.user;
+      const currentUser = req.customUser;
 
       if (!currentUser) {
         return res.status(401).json({
@@ -328,7 +318,7 @@ export const orderControllers = {
         });
       }
 
-      const user = await User.findById(currentUser.userId);
+      const user = await User.findById(currentUser._id);
       if (!user) {
         return res.status(404).json({
           success: false,

@@ -4,6 +4,7 @@ import { Payment } from "../../models/payment.model";
 import orderModel from "../../models/order.model";
 import { asyncHandler } from "../../utils";
 import { razorpayService } from "../../services/razorpay";
+import { IRequestWithUser } from "../../@types";
 
 export const paymentControllers = {
   initializePayment: asyncHandler(async (req: Request, res: Response) => {
@@ -184,7 +185,7 @@ export const paymentControllers = {
     }
   }),
 
-  getPaymentDetails: asyncHandler(async (req: Request, res: Response) => {
+  getPaymentDetails: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     try {
       const { paymentId } = req.params;
 
@@ -205,8 +206,8 @@ export const paymentControllers = {
       }
 
       if (
-        payment.userId.toString() !== req.user?._id &&
-        req.user?.role !== "admin"
+        payment.userId.toString() !== req.customUser?._id &&
+        req.customUser?.userType !== "admin"
       ) {
         return res.status(403).json({
           success: false,

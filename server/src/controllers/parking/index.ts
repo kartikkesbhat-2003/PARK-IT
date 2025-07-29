@@ -4,16 +4,12 @@ import { asyncHandler } from "../../utils";
 import { Parking } from "../../models/parking.model";
 import { uploadToS3 } from "../../services/s3.service";
 import { authenticationServices } from "../../services";
-
-interface IRequestWithUser extends Request {
-  user?: any;
-  file?: any;
-}
+import { IRequestWithUser } from "../../@types";
 
 export const parkingControllers = {
   createParkingSlot: asyncHandler(
     async (req: IRequestWithUser, res: Response) => {
-      const userId = req.user?.userId;
+      const userId = req.customUser?._id;
 
       if (!userId) {
         throw createHttpError(401, "Unauthorized");
@@ -93,8 +89,8 @@ export const parkingControllers = {
       }
 
       // If authenticated user is an owner, only show their listings
-      if (req.user?.role === "owner") {
-        query.owner = req.user.userId;
+      if (req.customUser?.userType === "owner") {
+        query.owner = req.customUser._id;
       }
 
       const sortOptions: any = {};
@@ -247,7 +243,7 @@ export const parkingControllers = {
   updateParkingSlot: asyncHandler(
     async (req: IRequestWithUser, res: Response) => {
       const { id } = req.params;
-      const userId = req.user?.userId;
+      const userId = req.customUser?._id;
 
       if (!userId) {
         throw createHttpError(401, "Unauthorized");
@@ -308,7 +304,7 @@ export const parkingControllers = {
   deleteParkingSlot: asyncHandler(
     async (req: IRequestWithUser, res: Response) => {
       const { id } = req.params;
-      const userId = req.user?.userId;
+      const userId = req.customUser?._id;
 
       if (!userId) {
         throw createHttpError(401, "Unauthorized");
@@ -340,7 +336,7 @@ export const parkingControllers = {
   // get all parking slot listed by a particular user owner
   getParkingSlotsByOwner: asyncHandler(
     async (req: IRequestWithUser, res: Response) => {
-      const userId = req.user?.userId;
+      const userId = req.customUser?._id;
       if (!userId) {
         throw createHttpError(401, "Unauthorized");
       }

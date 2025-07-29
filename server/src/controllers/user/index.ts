@@ -3,6 +3,7 @@ import mongoose, { Document } from "mongoose";
 import { asyncHandler } from "../../utils";
 import { User } from "../../models/user.model";
 import Order from "../../models/order.model";
+import { IRequestWithUser } from "../../@types";
 
 interface ParkingDetails {
   _id: mongoose.Types.ObjectId;
@@ -40,9 +41,9 @@ interface OrderWithParking extends Document {
 }
 
 export const userControllers = {
-  getUserProfile: asyncHandler(async (req: Request, res: Response) => {
+  getUserProfile: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     try {
-      const userId = req.user?.userId;
+      const userId = req.customUser?._id;
 
       if (!userId) {
         return res.status(401).json({
@@ -82,7 +83,7 @@ export const userControllers = {
         })
         .lean()) as unknown as OrderWithParking;
 
-      const formattedActiveOrder = activeOrder
+      const formattedActiveOrder: any = activeOrder
         ? {
             orderId: activeOrder._id,
             parkingId: activeOrder.parkingId,
@@ -158,9 +159,9 @@ export const userControllers = {
       });
     }
   }),
-  getUserDetails: asyncHandler(async (req: Request, res: Response) => {
+  getUserDetails: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     try {
-      const userId = req.user?.userId;
+      const userId = req.customUser?._id;
 
       if (!userId) {
         return res.status(401).json({
@@ -216,9 +217,9 @@ export const userControllers = {
     }
   }),
 
-  getActiveOrderOfAUser: asyncHandler(async (req: Request, res: Response) => {
+  getActiveOrderOfAUser: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     try {
-      const userId = req.user?.userId;
+      const userId = req.customUser?._id;
 
       if (!userId) {
         return res.status(401).json({
@@ -310,9 +311,9 @@ export const userControllers = {
     }
   }),
 
-  getAllOrdersOfAUser: asyncHandler(async (req: Request, res: Response) => {
+  getAllOrdersOfAUser: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     try {
-      const userId = req.user?.userId;
+      const userId = req.customUser?._id;
 
       if (!userId) {
         return res.status(401).json({
@@ -411,9 +412,9 @@ export const userControllers = {
       });
     }
   }),
-  setUserRole: asyncHandler(async (req: Request, res: Response) => {
+  setUserRole: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     try {
-      const userId = req.user?.userId;
+      const userId = req.customUser?._id;
       const { role } = req.body;
       console.log("role is ", role);
       if (!userId) {
@@ -438,7 +439,7 @@ export const userControllers = {
         });
       }
 
-      const currentUser = req.user;
+      const currentUser = req.customUser;
       if (!currentUser) {
         return res.status(401).json({
           success: false,

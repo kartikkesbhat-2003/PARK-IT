@@ -1,4 +1,4 @@
-import { EmailType } from "../../@types";
+import { EmailType, IRequestWithUser } from "../../@types";
 import { env } from "../../config";
 import { authenticationServices } from "../../services";
 import { asyncHandler, passwordUtils } from "../../utils";
@@ -488,9 +488,9 @@ export const authControllers = {
   }),
 
   // API to check email verification status
-  checkVerificationStatus: asyncHandler(async (req: Request, res: Response) => {
+  checkVerificationStatus: asyncHandler(async (req: IRequestWithUser, res: Response) => {
     // Get user ID from authenticated request
-    const userId = req.user?.id; // Assuming you have middleware that sets req.user
+    const userId = req.customUser?._id;
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
